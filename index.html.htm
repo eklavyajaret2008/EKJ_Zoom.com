@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <title>ZOOM-CLONE --- EKJ</title>
+    <script src="https://meet.jit.si/external_api.js"></script>
+</head>
+<style>
+    button {
+        background-color: rgb(255, 255, 24);
+        border: 3px solid black;
+        border-radius: 5px;
+        color: black;
+        font-size: 19px;
+        font-weight: bold;
+        position: absolute;
+        position: sticky;
+        top: 1%;
+        left: 1%;
+    }
+    
+    button:hover {
+        background-color: lime;
+        color: black;
+        font-size: 19px;
+        position: sticky;
+        font-weight: bold;
+        border: 3px solid black;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <button id="start" type="start">Create Meeting</button>
+    <div id="jitsi-container"></div>
+    <script>
+        var button = document.querySelector('#start');
+        var container = document.querySelector('#jitsi-container');
+        var api = null;
+        button.addEventListener('click', () => {
+            var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var stringLength = 30;
+
+            function pickRandom() {
+                return possible[Math.floor() * possible.length];
+            }
+            var randomString = Array.apply(null, Array(stringLength)).map(pickRandom).join('');
+            var domain = "meet.jit.si";
+            var options = {
+                "roomName": randomString,
+                "parentNode": container,
+                "width": 1250,
+                "height": 600,
+            };
+            api = new JitsiMeetExternalAPI(domain, options);
+        });
+    </script>
+</body>
+
+</html>
